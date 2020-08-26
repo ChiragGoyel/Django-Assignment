@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+{% if request.user.designation == "librarian" %}
+Update {{ book.title }}
+{% else %}
+You don't have access to this page!
+{% endif %}
+
+{% endblock title %}
+
+
+{% block content %}
+<style>
+    .form-group{
+        width: 30%;
+        padding:5px;
+        margin: 5px 5px 5px 5px;
+    
+    }
+</style>
+{% if request.user.designation == "librarian" %}
+<div class="container">
+  <h2 class="heading font-weight-light text-center">Update {{ book }}</h2>
+  <hr>
+  </div>
+  <div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        {{ form|crispy }}
+    </div>    
+    <input type="submit" value="Update" class="btn btn-info w-100 text-white text-center my-2">
+    </form>
+  </div>
+  {% else %}
+  <div class="container">
+    <h2 class="heading font-weight-light text-center">You don't have access to this page!</h2>
+  </div>
+  {% endif %}
+
+{% endblock content %}

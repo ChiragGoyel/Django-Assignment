@@ -1,0 +1,98 @@
+
+{% load static  %}
+
+
+{% block content %}
+
+    <!-- <h1>{{title}}</h1> -->
+
+    <div class="datatable_block">
+        <table id="datatable" class="table datatable table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>    				
+
+                    <th>Book_id</th>
+                    <th>isbn</th>
+                    <th>Book Count</th>
+                    <th>Authors </th>
+                    <th>Original Publication Year</th>
+                    <th>Title</th>
+                    <th>Average Rating</th>
+                    <th>Image Url</th>
+                    {%if request.user.designation == "librarian" %}
+                    <th>Edit/Delete</th>
+                    {%else%}
+                    {%endif%}
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in books %}
+                <tr>
+                    <td>{{ b.book_id }}</td>
+                    <td>{{ b.isbn }}</td>
+                    <td>{{b.books_count}}</td>
+                    <td>{{ b.authors }}</td>
+                    <td>{{ b.original_publication_year }}</td>
+                    <td>{{ b.title }}</td>
+                    <td>{{ b.average_rating }}</td>
+                    <td>{{ b.image_url }}</td>
+                    {%if request.user.designation == "librarian" %}
+                    <td><a href="{% url 'update' b.id %}" class=" header-link"
+                        >Edit</a>/<a href="{% url 'delete' b.id %}" class=" header-link">Delete</a></td>
+                    {%else%}
+                    {%endif%}
+                </tr>
+                {% endfor %}
+                </tbody>
+        </table>
+
+        <div id="extra_footer" style="color: blue;"></div>
+    </div>
+
+{% endblock content %}
+
+
+{% block extrajs %}
+
+    <script language="javascript">
+
+        // $(document).ready(function() {
+        //     DatatablesViewUtils.initialize_table($('#datatable'), "");
+        // });
+        $(document).ready(function() {
+    var oTable = $('#datatable').dataTable({
+        autoWidth: false,
+        full_row_select: true,
+    });
+    // ...
+});
+
+
+            
+
+            // $('#btn-export').on('click', function(event) {
+            //     var params = table.ajax.params();
+            //     params.export = 1;
+            //     //alert(params);
+
+            //     $.ajax({
+            //         type: "GET",
+            //         url: "",
+            //         data: params
+            //         // cache: false,
+            //         // crossDomain: false,
+            //         // dataType: 'json',
+            //         // headers: {"X-CSRFToken": getCookie('csrftoken')}
+            //     }).done(function(data) {
+            //         alert(data.task_id);
+            //         console.log('data=%o', data);
+            //     }).fail(function(jqXHR, textStatus) {
+            //         alert('FAILURE: %o', jqXHR);
+            //         console.log('FAILURE: %o', jqXHR);
+            //     });
+            // });
+
+        // } );
+
+    </script>
+{% endblock %}

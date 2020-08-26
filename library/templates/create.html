@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+Create a New Book
+{% endblock title %}
+
+
+{% block content %}
+
+<style>
+    .form-group{
+        width: 30%;
+        padding:5px;
+        margin: 5px 5px 5px 5px;
+
+    }
+
+</style>
+
+<div class="container">
+  <h2 class="heading font-weight-light text-center">Add a new Book</h2>
+  <hr>
+</div>
+      <div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+ 
+        <div class="row">
+            {{ form|crispy }}
+        </div>
+  
+    <input type="submit" value="Create" class="btn btn-info w-100 text-white text-center my-2">
+    </form>
+  </div>
+
+  
+
+{% endblock content %}
